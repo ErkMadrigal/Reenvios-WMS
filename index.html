@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./app.css">
+    <title>Reenvios</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <b class="navbar-brand">Reenvios WMS</b>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <button class="nav-link btn btn-link text-decoration-none" id="reenvio" aria-current="page">Reenvio</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn btn-link text-decoration-none" id="asignar" aria-current="page">Asignar lineas</button>
+                </li>
+                <li class="nav-item d-none">
+                    <button class="nav-link btn btn-link text-decoration-none" id="reenvioMasivo" aria-current="page">Reenvio Masivo</button>
+                </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card mt-4 d-none" id="mostrarReenvio">
+            <div class="card-body">
+                <h3 class="card-title">Reenvio</h3>
+                <hr>
+                
+                <div class="row">
+                    <div class="col-md-12 col-lg-6">
+                        <label for="orden" class="col-sm-2 col-form-label">No. Orden</label>
+                            <div class="col-sm-10">
+                            <input type="text" class="form-control" id="orden" placeholder="Número de Orden">
+                        </div>
+                    </div>
+                    <div class="col-md-11 col-lg-6">
+                        <label for="sku" class="form-label">
+                            Sku 
+                        </label>
+                        <div class="input-group mb-3" >
+                            <span class="input-group-text" id="spiner" style="background: #fff;border: none; display:none;">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </span>
+                            <input class="form-control" list="datalistOptions" id="sku" placeholder="Nomenclatura: SKU | cantidad | precio">
+                            <!-- <datalist id="datalistOptions">
+                                <option value="San Francisco">
+                                <option value="New York">
+                                <option value="Seattle">
+                                <option value="Los Angeles">
+                                <option value="Chicago">
+                            </datalist>  -->
+                            <button class="input-group-text btn btn-dark" type="button" id="skuAdd">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-check">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radiosR" id="_RE" checked>
+                                <label class="form-check-label" for="check1">
+                                  _RE
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radiosR" id="_FE" >
+                                <label class="form-check-label" for="check2">
+                                  _FE
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-12 m-2" >
+                        <ul class="list-group list-group-flush" id="arrSKU">
+                            
+                        </ul>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <button type="button" class="btn btn-primary" id="btnEnviarReenvio">Enviar</button>
+                        <button type="button" class="btn btn-danger" id="btnCancelar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4 d-none" id="mostrarReenvioMasivo">
+            <div class="card-body">
+                <h3 class="card-title">Reenvio Masivo</h3>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <button class="btn btn-primary" id="btnFile">Selecciona el Documento</button>
+                                    <input class="form-control d-none" type="file" id="file" accept=".xlsx, .xls" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radioRM" id="checkR1" checked>
+                                        <label class="form-check-label" for="checkR1">
+                                          _RE
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="radioRM" id="checkR2" >
+                                        <label class="form-check-label" for="checkR2">
+                                          _FE
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 d-none">
+                        <div class="mb-3 mt-4">
+                            <i class="bi bi-plus-circle"></i>
+                        </div>
+                        <b>nombreDocumento.xlsx</b>
+                    </div>
+                    
+                    <div class="col-md-12 mt-3">
+                        <hr>
+                        <h5>Caracteristicas Ordenes</h5>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Numero de orden</h5>
+                                      <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">An item</li>
+                                        <li class="list-group-item">A second item</li>
+                                        <li class="list-group-item">A third item</li>
+                                      </ul>
+                                      <div class="mt-3">
+                                          <button type="button" class="btn btn-primary">Enviar</button>
+                                          <button type="button" class="btn btn-danger">Cancelar</button>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
